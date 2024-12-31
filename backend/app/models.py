@@ -25,7 +25,7 @@ class Asset(Base):
 
 # Define the "Item" model/table
 class AssetType(Base):
-    __tablename__ = "assets"
+    __tablename__ = "assetsType"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
