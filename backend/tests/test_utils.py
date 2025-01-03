@@ -1,5 +1,5 @@
 import pytest
-from app.utils import miles_to_kms  # Import the function to test
+from backend.app.length_utils import miles_to_kms  # Import the function to test
 
 # Test cases for miles_to_kms function
 test_cases = [

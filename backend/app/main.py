@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from . import models, schemas, database
 from typing import Optional
 import logging
-from .utils import miles_to_kms  # Import from utils
+from .length_utils import *  # Import from utils
 
 # Initialize the FastAPI app
 app = FastAPI()
@@ -55,7 +55,7 @@ async def http_convert(name: Optional[str] = Query(None, description="Name to gr
             "Pass a name in the query string or in the request body for a personalized response."
         )
 
-@app.get("/convert_value")
+@app.get("/convert_value", status_code=200)
 async def convert_value(
     convert_from: Optional[str] = Query(None, description="Unit to convert from (e.g., 'miles')"),
     convert_to: Optional[str] = Query(None, description="Unit to convert to (e.g., 'kms')"),
@@ -69,12 +69,20 @@ async def convert_value(
             detail="Missing parameters. Please provide 'convert_from', 'convert_to', and 'source_value'."
         )
 
-    if convert_from.lower() == "miles" and convert_to.lower() == "kms":
-        target_value = miles_to_kms(source_value)
-        return f"{source_value} miles is equal to {target_value:.2f} kilometers."
-    else:
-        raise HTTPException(
-            status_code=400,
-            detail="Unsupported conversion. Only miles to kilometers is supported."
-        )
+    try:
+        # Type of conversion.
+        # Decimal points.
+        target_value = convert_length(source_value, convert_from.lower(), convert_to.lower())
+        return {
+            "source_value": source_value,
+            "convert_from": convert_from,
+            "convert_to": convert_to,
+            "target_value": target_value
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logging.error(f"Error processing request: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 
