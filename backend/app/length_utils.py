@@ -23,7 +23,7 @@ def foot_to_m(value):
     return value * 0.3048
 
 def mile_to_m(value):
-    return value * 1609.34
+    return value * 1609.344
 
 def inch_to_m(value):
     return value * 0.0254
@@ -53,7 +53,7 @@ def m_to_foot(value):
     return value / 0.3048
 
 def m_to_mile(value):
-    return value / 1609.34
+    return value / 1609.344
 
 def m_to_inch(value):
     return value / 0.0254

@@ -27,7 +27,7 @@ def test_foot_to_m():
     assert pytest.approx(foot_to_m(1)) == 0.3048
 
 def test_mile_to_m():
-    assert pytest.approx(mile_to_m(1)) == 1609.34
+    assert pytest.approx(mile_to_m(1)) == 1609.344
 
 def test_inch_to_m():
     assert pytest.approx(inch_to_m(1)) == 0.0254
@@ -57,7 +57,10 @@ def test_m_to_foot():
     assert pytest.approx(m_to_foot(0.3048)) == 1
 
 def test_m_to_mile():
-    assert pytest.approx(m_to_mile(1609.34)) == 1
+    assert pytest.approx(m_to_mile(1609.344)) == 1
+
+def test_m_to_miles():
+    assert pytest.approx(m_to_mile(1609000.333333)) == 999.7864554334
 
 def test_m_to_inch():
     assert pytest.approx(m_to_inch(0.0254)) == 1
@@ -73,7 +76,7 @@ def test_convert_length():
     assert pytest.approx(convert_length(1e6, "micrometer", "m")) == 1
     assert pytest.approx(convert_length(1, "yard", "m")) == 0.9144
     assert pytest.approx(convert_length(1, "foot", "inch")) == 12
-    assert pytest.approx(convert_length(1, "mile", "km")) == 1.60934
+    assert pytest.approx(convert_length(1, "mile", "km")) == 1.609344
     assert pytest.approx(convert_length(1, "light_year", "m")) == 9.461e15
     assert pytest.approx(convert_length(1, "m", "m")) == 1
 
