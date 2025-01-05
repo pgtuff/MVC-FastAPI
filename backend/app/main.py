@@ -59,7 +59,8 @@ async def http_convert(name: Optional[str] = Query(None, description="Name to gr
 async def convert_value(
     convert_from: Optional[str] = Query(None, description="Unit to convert from (e.g., 'miles')"),
     convert_to: Optional[str] = Query(None, description="Unit to convert to (e.g., 'kms')"),
-    source_value: Optional[float] = Query(None, description="Value to convert")
+    source_value: Optional[float] = Query(None, description="Value to convert"),
+    decimal_points: Optional[int] = Query(2, description="Value to convert")
 ):
     logging.info("Processing /convert_value request.")
 
@@ -68,16 +69,13 @@ async def convert_value(
             status_code=400,
             detail="Missing parameters. Please provide 'convert_from', 'convert_to', and 'source_value'."
         )
-
     try:
         # Type of conversion.
         # Decimal points.
+        max_decimal_points = min(decimal_points, 17)
         target_value = convert_length(source_value, convert_from.lower(), convert_to.lower())
         return {
-            "source_value": source_value,
-            "convert_from": convert_from,
-            "convert_to": convert_to,
-            "target_value": target_value
+            "target_value": round(target_value, max_decimal_points)
         }
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
