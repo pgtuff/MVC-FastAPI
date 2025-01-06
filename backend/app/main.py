@@ -70,10 +70,14 @@ async def convert_value(
             detail="Missing parameters. Please provide 'convert_from', 'convert_to', and 'source_value'."
         )
     try:
-        # Type of conversion.
         # Decimal points.
         max_decimal_points = min(decimal_points, 17)
-        target_value = convert_length(source_value, convert_from.lower(), convert_to.lower())
+        # Type of conversion.
+        target_value = None
+        if LengthConverter.length_conversion(convert_from, convert_to):
+            target_value = LengthConverter.convert(source_value, convert_from, convert_to)
+        else:
+            target_value = 69
         return {
             "target_value": round(target_value, max_decimal_points)
         }

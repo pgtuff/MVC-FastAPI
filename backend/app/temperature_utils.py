@@ -1,23 +1,54 @@
-def celsius_to_fahrenheit(celsius):
-    """Convert Celsius to Fahrenheit."""
-    return (celsius * 9/5) + 32
+class TemperatureConverter:
+    # Conversion functions as class-level attributes
+    TO_CELSIUS = {
+        "celsius": lambda value: value,
+        "fahrenheit": lambda value: (value - 32) * 5 / 9,
+        "kelvin": lambda value: value - 273.15,
+    }
 
-def celsius_to_kelvin(celsius):
-    """Convert Celsius to Kelvin."""
-    return celsius + 273.15
+    FROM_CELSIUS = {
+        "celsius": lambda value: value,
+        "fahrenheit": lambda value: (value * 9 / 5) + 32,
+        "kelvin": lambda value: value + 273.15,
+    }
 
-def fahrenheit_to_celsius(fahrenheit):
-    """Convert Fahrenheit to Celsius."""
-    return (fahrenheit - 32) * 5/9
+    @classmethod
+    def temperature_conversion(cls, from_unit, to_unit):
+        """
+        Are we dealing with a temperature conversion?
+        """
+        # Normalize units to lowercase
+        from_unit = from_unit.lower()
+        to_unit = to_unit.lower()
+        if from_unit in cls.TO_CELSIUS and to_unit in cls.FROM_CELSIUS:
+            return True
+        else:
+            return False
 
-def fahrenheit_to_kelvin(fahrenheit):
-    """Convert Fahrenheit to Kelvin."""
-    return celsius_to_kelvin(fahrenheit_to_celsius(fahrenheit))
+    @classmethod
+    def convert(cls, value, from_unit, to_unit):
+        """
+        Convert a temperature from one unit to another.
 
-def kelvin_to_celsius(kelvin):
-    """Convert Kelvin to Celsius."""
-    return kelvin - 273.15
+        Args:
+            value (float): The temperature to convert.
+            from_unit (str): The unit of the input temperature.
+            to_unit (str): The unit to convert to.
 
-def kelvin_to_fahrenheit(kelvin):
-    """Convert Kelvin to Fahrenheit."""
-    return celsius_to_fahrenheit(kelvin_to_celsius(kelvin))
+        Returns:
+            float: The converted temperature.
+        """
+        # Normalize units to lowercase
+        from_unit = from_unit.lower()
+        to_unit = to_unit.lower()
+
+        if from_unit not in cls.TO_CELSIUS or to_unit not in cls.FROM_CELSIUS:
+            raise ValueError(
+                f"Unsupported unit. Supported units are: {', '.join(cls.TO_CELSIUS.keys())}"
+            )
+
+        # Convert from the source unit to Celsius
+        value_in_celsius = cls.TO_CELSIUS[from_unit](value)
+
+        # Convert from Celsius to the target unit
+        return cls.FROM_CELSIUS[to_unit](value_in_celsius)
