@@ -6,6 +6,8 @@ from . import models, schemas, database
 from typing import Optional
 import logging
 from .length_utils import *  # Import from utils
+from .temperature_utils import *  # Import from utils
+from .area_utils import *  # Import from utils
 
 # Initialize the FastAPI app
 app = FastAPI()
@@ -74,10 +76,12 @@ async def convert_value(
         max_decimal_points = min(decimal_points, 17)
         # Type of conversion.
         target_value = None
-        if LengthConverter.length_conversion(convert_from, convert_to):
+        if LengthConverter.is_supported_conversion(convert_from, convert_to):
             target_value = LengthConverter.convert(source_value, convert_from, convert_to)
-        else:
-            target_value = 69
+        elif TemperatureConverter.is_supported_conversion(convert_from, convert_to):
+            target_value = TemperatureConverter.convert(source_value, convert_from, convert_to)
+        elif AreaConverter.is_supported_conversion(convert_from, convert_to):
+            target_value = AreaConverter.convert(source_value, convert_from, convert_to)
         return {
             "target_value": round(target_value, max_decimal_points)
         }
