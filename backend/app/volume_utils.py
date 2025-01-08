@@ -1,0 +1,56 @@
+# volume_converter.py
+
+from .unit_converter import UnitConverter
+
+class VolumeConverter(UnitConverter):
+    TO_BASE_UNIT = {
+        "cubic_m": lambda value: value,
+        "cubic_km": lambda value: value * 1000000000,
+        "cubic_cm": lambda value: value / 1000000,
+        "cubic_mm": lambda value: value / 1000000000,
+        "litre": lambda value: value / 1000,
+        "millilitre": lambda value: value / 1000000,
+        "us_gallon": lambda value: value * 0.00378541,
+        "us_quart": lambda value: value * 0.000946353,
+        "us_pint": lambda value: value * 0.000473176,
+        "us_cup": lambda value: value * 0.000236588,
+        "us_fluid_ounce": lambda value: value * 0.0000295735,
+        "us_table_spoon": lambda value: value * 0.0000147868,
+        "us_tea_spoon": lambda value: value * 0.00000492892,
+        "imperial_gallon": lambda value: value * 0.00454609,
+        "imperial_quart": lambda value: value * 0.00113652,
+        "imperial_pint": lambda value: value * 0.000568261,
+        "imperial_fluid_ounce": lambda value: value * 0.0000284131,
+        "imperial_table_spoon": lambda value: value * 0.0000177582,
+        "imperial_tea_spoon": lambda value: value * 0.00000591939,
+        "cubic_mile": lambda value: value * 4168180000,
+        "cubic_yard": lambda value: value * 0.764555,
+        "cubic_foot": lambda value: value * 0.0283168,
+        "cubic_inch": lambda value: value * 0.0000163871,
+    }
+
+    FROM_BASE_UNIT = {
+        "cubic_m": lambda value: value,
+        "cubic_km": lambda value: value / 1000000000,
+        "cubic_cm": lambda value: value * 1000000,
+        "cubic_mm": lambda value: value * 1000000000,
+        "litre": lambda value: value * 1000,
+        "millilitre": lambda value: value * 1000000,
+        "us_gallon": lambda value: value / 0.00378541,
+        "us_quart": lambda value: value / 0.000946353,
+        "us_pint": lambda value: value / 0.000473176,
+        "us_cup": lambda value: value / 0.000236588,
+        "us_fluid_ounce": lambda value: value / 0.0000295735,
+        "us_table_spoon": lambda value: value / 0.0000147868,
+        "us_tea_spoon": lambda value: value / 0.00000492892,
+        "imperial_gallon": lambda value: value / 0.00454609,
+        "imperial_quart": lambda value: value / 0.00113652,
+        "imperial_pint": lambda value: value / 0.000568261,
+        "imperial_fluid_ounce": lambda value: value / 0.0000284131,
+        "imperial_table_spoon": lambda value: value / 0.0000177582,
+        "imperial_tea_spoon": lambda value: value / 0.00000591939,
+        "cubic_mile": lambda value: value / 4168180000,
+        "cubic_yard": lambda value: value / 0.764555,
+        "cubic_foot": lambda value: value / 0.0283168,
+        "cubic_inch": lambda value: value / 0.0000163871,
+    }
