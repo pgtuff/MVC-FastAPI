@@ -8,9 +8,18 @@ import logging
 from .length_utils import *  # Import from utils
 from .temperature_utils import *  # Import from utils
 from .area_utils import *  # Import from utils
+from fastapi.security.api_key import APIKeyHeader, APIKey
+
 
 # Initialize the FastAPI app
 app = FastAPI()
+
+# Define the header name for the API key
+API_KEY_NAME = "X-API-Key"
+API_KEY_HEADER = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
+
+# Replace this with your API key storage
+VALID_API_KEYS = {"your-secret-key": "user1", "another-secret-key": "user2"}
 
 # Allow frontend to access backend
 app.add_middleware(
@@ -57,8 +66,15 @@ async def http_convert(name: Optional[str] = Query(None, description="Name to gr
             "Pass a name in the query string or in the request body for a personalized response."
         )
 
+async def get_api_key(api_key_header: str = Depends(API_KEY_HEADER)):
+    if api_key_header in VALID_API_KEYS:
+        return api_key_header
+    raise HTTPException(status_code=403, detail="Invalid API Key")
+
+
 @app.get("/convert_value", status_code=200)
 async def convert_value(
+    api_key: APIKey = Depends(get_api_key),
     convert_from: Optional[str] = Query(None, description="Unit to convert from (e.g., 'miles')"),
     convert_to: Optional[str] = Query(None, description="Unit to convert to (e.g., 'kms')"),
     source_value: Optional[float] = Query(None, description="Value to convert"),
