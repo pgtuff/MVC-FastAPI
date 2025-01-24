@@ -1,6 +1,6 @@
 # backend/app/main.py
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Query, Depends, HTTPException
+from fastapi import FastAPI, Header, Query, Depends, HTTPException
 from sqlalchemy.orm import Session
 from . import models, schemas, database
 from typing import Optional
@@ -21,6 +21,9 @@ API_KEY_HEADER = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
 # Replace this with your API key storage
 VALID_API_KEYS = {"your-secret-key": "user1", "another-secret-key": "user2"}
+
+# Define the APIKeyHeader security scheme
+api_key_header = APIKeyHeader(name="Authorization", auto_error=False)
 
 # Allow frontend to access backend
 app.add_middleware(
@@ -52,19 +55,30 @@ def read_items(db: Session = Depends(database.get_db)):
     return db.query(models.Item).all()
 
 
-async def get_api_key(api_key_header: str = Depends(API_KEY_HEADER)):
-    if api_key_header in VALID_API_KEYS:
-        return api_key_header
+# Dependency to validate the API key from the header
+async def get_api_key(api_key_header: str = Header(None, alias="Authorization")):
+    if not api_key_header:
+        raise HTTPException(status_code=403, detail="Missing API Key")
+    
+    # Check if the header starts with "Bearer " and extract the token
+    if api_key_header.startswith("Bearer "):
+        token = api_key_header[len("Bearer "):]  # Remove "Bearer " prefix
+    else:
+        token = api_key_header  # Use the header value directly if no "Bearer " prefix
+    
+    # Validate the token
+    if token in VALID_API_KEYS:
+        return token
+    
     raise HTTPException(status_code=403, detail="Invalid API Key")
-
 
 @app.get("/convert_value", status_code=200)
 async def convert_value(
     api_key: APIKey = Depends(get_api_key),
-    convert_from: Optional[str] = Query(None, description="Unit to convert from (e.g., 'miles')"),
-    convert_to: Optional[str] = Query(None, description="Unit to convert to (e.g., 'kms')"),
-    source_value: Optional[float] = Query(None, description="Value to convert"),
-    decimal_points: Optional[int] = Query(2, description="Value to convert")
+    convert_from: str = Query(None, description="Unit to convert from (e.g., 'mile')"),
+    convert_to: str = Query(None, description="Unit to convert to (e.g., 'km')"),
+    source_value: float = Query(None, description="Value to convert"),
+    decimal_points: Optional[int] = Query(2, description="Optional. Defaults to 2. Value to convert")
 ):
     logging.info("Processing /convert_value request.")
 
