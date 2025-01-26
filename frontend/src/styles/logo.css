@@ -1,0 +1,16 @@
+/* Logo.css */
+.logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000000; /* Balck color */
+  }
+  
+  .highlight {
+    color: #10b981; /* Green color */
+  }
+  

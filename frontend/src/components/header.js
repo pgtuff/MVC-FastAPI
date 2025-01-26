@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../components/logo.js'; // Adjust the path if needed
 
 const Header = () => {
   return (
-    <header>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+    <header className="header">
+      <nav className="nav-links">
+        <Link to="/" className="nav-link"><Logo /></Link>
+        <Link to="/about" className="nav-link">About</Link>
+        <Link to="/contact" className="nav-link">Contact</Link>
       </nav>
     </header>
   );

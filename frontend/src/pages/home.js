@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/global.css';
 
 const Home = () => {
   const [sourceValue, setSourceValue] = useState(''); // Source value input
