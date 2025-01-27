@@ -274,3 +274,26 @@ footer a:hover {
     transform: rotate(360deg);
   }
 }
+
+/* Auth Links Styles */
+.auth-links {
+  margin-left: auto; /* Pushes the auth links to the right */
+  display: flex;
+  gap: 16px; /* Spacing between links */
+  align-items: center;
+}
+
+.auth-link {
+  color: #fff; /* White text color to match the navbar */
+  text-decoration: none;
+  padding: 8px 16px; /* Consistent padding with .nav-link */
+  border-radius: 4px; /* Consistent border radius */
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 500; /* Consistent font weight */
+  cursor: pointer; /* Ensure it looks clickable */
+}
+
+.auth-link:hover {
+  background-color: #495057; /* Same hover effect as .nav-link */
+  color: #10b981; /* Green color on hover to match .nav-link */
+}

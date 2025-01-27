@@ -1,16 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../components/logo.js'; // Adjust the path if needed
+import Logo from '../components/logo.js'; // Adjust the import path if needed
 
-const Header = () => {
+const Header = ({ isLoggedIn }) => {
   return (
     <header className="header">
-      {/* Top row with logo and main links */}
+      {/* Top row with logo, main links, and auth options */}
       <nav className="nav-links">
         <Link to="/" className="nav-link"><Logo /></Link>
         <Link to="/about" className="nav-link">About</Link>
         <Link to="/api" className="nav-link">Get API Access</Link>
         <Link to="/docs" className="nav-link">API Docs</Link>
+        
+        {/* Auth links on the right-hand side */}
+        <div className="auth-links">
+          {isLoggedIn ? (
+            <Link to="/profile" className="auth-link">Profile</Link>
+          ) : (
+            <Link to="/login" className="auth-link">Sign In</Link>
+          )}
+        </div>
       </nav>
 
       {/* New row for unit conversion links */}
