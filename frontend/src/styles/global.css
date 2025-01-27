@@ -297,3 +297,31 @@ footer a:hover {
   background-color: #495057; /* Same hover effect as .nav-link */
   color: #10b981; /* Green color on hover to match .nav-link */
 }
+
+/* CTA Container */
+.cta-container {
+  text-align: center;
+  margin: 20px 0;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* CTA Button */
+.cta-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px; /* Reduced padding to make it smaller */
+  background-color: #10b981; /* Green color */
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px; /* Smaller font size */
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background-color: #0e9d6e; /* Darker green on hover */
+}

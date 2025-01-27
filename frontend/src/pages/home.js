@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CallToAction from '../components/callToAction'; // Import the CallToAction component
 import '../styles/global.css';
 
 const Home = () => {
@@ -114,6 +115,9 @@ const Home = () => {
         </p>
       )}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
+      {/* Add the CallToAction component here */}
+      <CallToAction />
     </div>
   );
 };
