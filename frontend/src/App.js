@@ -3,7 +3,8 @@ import './styles/global.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import About from './pages/about';
-import Contact from './pages/contact';
+import Api from './pages/api';
+import Docs from './pages/docs';
 import Header from './components/header';
 import Footer from './components/footer';
 
@@ -15,7 +16,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/api" element={<Api />} />
+          <Route path="/docs" element={<Docs />} />
         </Routes>
       </main>
       <Footer />

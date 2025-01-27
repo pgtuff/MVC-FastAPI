@@ -9,7 +9,8 @@ const Header = () => {
       <nav className="nav-links">
         <Link to="/" className="nav-link"><Logo /></Link>
         <Link to="/about" className="nav-link">About</Link>
-        <Link to="/contact" className="nav-link">Contact</Link>
+        <Link to="/api" className="nav-link">Get API Access</Link>
+        <Link to="/docs" className="nav-link">API Docs</Link>
       </nav>
 
       {/* New row for unit conversion links */}
