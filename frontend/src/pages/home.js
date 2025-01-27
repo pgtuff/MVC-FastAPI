@@ -3,7 +3,7 @@ import '../styles/global.css';
 
 const Home = () => {
   const [sourceValue, setSourceValue] = useState(''); // Source value input
-  const [decimalPoints, setDecimalPoints] = useState('2'); // Optional decimal points input
+  const [decimalPoints, setDecimalPoints] = useState(''); // Optional decimal points input
   const [convertFrom, setConvertFrom] = useState('mile'); // Default source unit
   const [convertTo, setConvertTo] = useState('km'); // Default destination unit
   const [response, setResponse] = useState(null); // Result of conversion
@@ -26,7 +26,7 @@ const Home = () => {
       const res = await fetch(url.toString(), {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer your-secret-key', // Pass API key in the header
+          Authorization: 'Bearer your-secret-key', // Pass API key in the header
         },
       });
 
@@ -35,30 +35,31 @@ const Home = () => {
       }
 
       const data = await res.json();
-      setResponse(data.result); // Assuming the API returns { "result": <value> }
+      setResponse(data); // Set the entire response object
     } catch (err) {
       setError(err.message);
     }
   };
 
+  // Units array sorted alphabetically
   const units = [
-    'mm',
     'cm',
-    'm',
+    'foot',
+    'inch',
     'km',
+    'light_year',
+    'm',
     'micrometer',
+    'mile',
+    'mm',
     'nanometer',
     'yard',
-    'foot',
-    'mile',
-    'inch',
-    'light_year',
-  ];
+  ].sort(); // Sort the array alphabetically
 
   return (
-    <div>
-      <h1>Unit Converter</h1>
-      <div>
+    <div className="form-container">
+      <h1>Distance Converter</h1>
+      <div className="form-row">
         <label htmlFor="source-value">Source Value:</label>
         <input
           id="source-value"
@@ -68,7 +69,7 @@ const Home = () => {
           placeholder="Enter value"
         />
       </div>
-      <div>
+      <div className="form-row">
         <label htmlFor="convert-from">Convert From:</label>
         <select
           id="convert-from"
@@ -82,7 +83,7 @@ const Home = () => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="form-row">
         <label htmlFor="convert-to">Convert To:</label>
         <select
           id="convert-to"
@@ -96,20 +97,20 @@ const Home = () => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="form-row">
         <label htmlFor="decimal-points">Decimal Points (Optional):</label>
         <input
           id="decimal-points"
           type="number"
           value={decimalPoints}
           onChange={(e) => setDecimalPoints(e.target.value)}
-          placeholder="e.g., 2"
+          placeholder="Defaults to 2"
         />
       </div>
       <button onClick={handleConvert}>Convert</button>
       {response !== null && (
         <p>
-          Result: <strong>{response}</strong>
+          Result: <strong>{response.result} {response.unit}</strong>
         </p>
       )}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}

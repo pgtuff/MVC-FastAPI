@@ -91,7 +91,8 @@ async def convert_value(
         elif AreaConverter.is_supported_conversion(convert_from, convert_to):
             target_value = AreaConverter.convert(source_value, convert_from, convert_to)
         response = {
-            "result": round(target_value, max_decimal_points)
+            "result": round(target_value, max_decimal_points),
+            "unit": convert_to  # Add the unit to the response
         }
         print(f"Returning response: {response}")  # Print the response to the console
         return response
