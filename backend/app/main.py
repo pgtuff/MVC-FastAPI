@@ -4,9 +4,12 @@ from sqlalchemy.orm import Session
 from . import models, schemas, database
 from typing import Optional
 import logging
-from .length_utils import *  # Import from utils
-from .temperature_utils import *  # Import from utils
-from .area_utils import *  # Import from utils
+from .length_utils import LengthConverter  # Import from utils
+from .temperature_utils import TemperatureConverter  # Import from utils
+from .area_utils import AreaConverter  # Import from utils
+from .time_utils import TimeConverter
+from .volume_utils import VolumeConverter
+from .weight_utils import WeightConverter
 from fastapi.security.api_key import APIKeyHeader
 import secrets
 
@@ -90,6 +93,12 @@ async def convert_value(
             target_value = TemperatureConverter.convert(source_value, convert_from, convert_to)
         elif AreaConverter.is_supported_conversion(convert_from, convert_to):
             target_value = AreaConverter.convert(source_value, convert_from, convert_to)
+        elif TimeConverter.is_supported_conversion(convert_from, convert_to):
+            target_value = TimeConverter.convert(source_value, convert_from, convert_to)
+        elif VolumeConverter.is_supported_conversion(convert_from, convert_to):
+            target_value = VolumeConverter.convert(source_value, convert_from, convert_to)
+        elif WeightConverter.is_supported_conversion(convert_from, convert_to):
+            target_value = WeightConverter.convert(source_value, convert_from, convert_to)
         response = {
             "result": round(target_value, max_decimal_points),
             "unit": convert_to  # Add the unit to the response
