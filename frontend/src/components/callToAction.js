@@ -8,7 +8,7 @@ const CallToAction = () => {
       <p className="cta-text">
         Get API access and unlock powerful features today!
       </p>
-      <Link to="/get-api-access" className="cta-button">
+      <Link to="/api" className="cta-button">
         Get API Access
       </Link>
     </div>

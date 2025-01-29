@@ -10,6 +10,8 @@ import AreaConverter from './pages/area';
 import TemperatureConverter from './pages/temperature';
 import TimeConverter from './pages/time';
 import VolumeConverter from './pages/volume';
+import Login from './pages/login';
+import Profile from './pages/profile';
 import Header from './components/header';
 import Footer from './components/footer';
 
@@ -42,6 +44,8 @@ const App = () => {
           <Route path="/temperature" element={<TemperatureConverter />} />
           <Route path="/time" element={<TimeConverter />} />
           <Route path="/volume" element={<VolumeConverter />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
 
