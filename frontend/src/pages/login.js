@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../components/logo.js';
+import '../styles/global.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [email, setEmail] = useState(''); // Email input
+  const [password, setPassword] = useState(''); // Password input
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // Terms agreement checkbox
+  const [error, setError] = useState(null); // Error handling
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (!agreeToTerms) {
-      alert('You must agree to the terms and conditions.');
+      setError('You must agree to the terms and conditions.');
       return;
     }
+    setError(null); // Clear any previous errors
+
     // Add login logic here (e.g., API call to authenticate user)
     console.log('Logging in with:', email, password);
     alert(`Login successful for ${email}`);
@@ -23,12 +28,20 @@ const Login = () => {
   };
 
   return (
-    <div className="form-container">
-      <h1>Login</h1>
-      <p>Sign in to your account or create a new one.</p>
-
+    <div className="form">
       {/* Login Form */}
       <form onSubmit={handleLogin} className="form-container">
+        {/* Centered Logo */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '16px' }}>
+          <Logo />
+        </div>
+
+        {/* Centered Title */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '16px' }}>
+          <p>Sign in to your account</p>
+        </div>
+
+        {/* Email Input */}
         <div className="form-row">
           <label htmlFor="email">Email</label>
           <input
@@ -36,11 +49,13 @@ const Login = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
+            placeholder="&#xf0e0; Enter your email"
             required
+            className="email-input"
           />
         </div>
 
+        {/* Password Input */}
         <div className="form-row">
           <label htmlFor="password">Password</label>
           <input
@@ -53,6 +68,7 @@ const Login = () => {
           />
         </div>
 
+        {/* Terms and Conditions Checkbox */}
         <div className="form-row">
           <label>
             <input
@@ -65,6 +81,10 @@ const Login = () => {
           </label>
         </div>
 
+        {/* Error Message */}
+        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
+        {/* Login Button */}
         <button type="submit" className="cta-button">
           Login
         </button>
@@ -97,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Login;
