@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../components/logo.js';
 import '../styles/global.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState(''); // Email input
   const [password, setPassword] = useState(''); // Password input
   const [agreeToTerms, setAgreeToTerms] = useState(false); // Terms agreement checkbox
   const [error, setError] = useState(null); // Error handling
+  const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -43,29 +45,76 @@ const Login = () => {
 
         {/* Email Input */}
         <div className="form-row">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="&#xf0e0; Enter your email"
-            required
-            className="email-input"
-          />
+          <label htmlFor="email"></label>
+          <div style={{ position: 'relative' }}>
+            {/* Font Awesome Email Icon */}
+            <i
+              className="fa-regular fa-envelope"
+              style={{
+                position: 'absolute',
+                left: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: '#999',
+              }}
+            ></i>
+            {/* Email Input Field */}
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="email-input"
+              style={{ paddingLeft: '40px' }} // Add padding to avoid text overlap
+            />
+          </div>
         </div>
 
         {/* Password Input */}
         <div className="form-row">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
+          <label htmlFor="password"></label>
+          <div style={{ position: 'relative' }}>
+            {/* Font Awesome Lock Icon */}
+            <i
+              className="fa-solid fa-lock"
+              style={{
+                position: 'absolute',
+                left: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: '#999',
+              }}
+            />
+            {/* Password Input Field */}
+            <input
+              type={showPassword ? 'text' : 'password'} // Toggle input type
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+              style={{ paddingLeft: '40px', paddingRight: '40px' }} // Add padding for the toggle button
+            />
+            {/* Password Visibility Toggle Button */}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: 'absolute',
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#999',
+              }}
+            >
+              <i className={showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
+            </button>
+          </div>
         </div>
 
         {/* Terms and Conditions Checkbox */}

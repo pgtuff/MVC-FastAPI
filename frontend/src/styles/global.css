@@ -330,9 +330,3 @@ footer a:hover {
 .cta-button:hover {
   background-color: #0e9d6e; /* Darker green on hover */
 }
-
-.email-input::placeholder {
-  font-family: 'Font Awesome 6 Free', sans-serif; /* Use Font Awesome font */
-  font-weight: 900; /* Required for solid icons */
-  color: #999; /* Placeholder text color */
-}
