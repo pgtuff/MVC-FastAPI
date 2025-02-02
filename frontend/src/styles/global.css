@@ -330,3 +330,33 @@ footer a:hover {
 .cta-button:hover {
   background-color: #0e9d6e; /* Darker green on hover */
 }
+
+/* Custom Form Row for Checkbox and Text Alignment */
+.custom-form-row {
+  display: flex;
+  align-items: center; /* Vertically center the checkbox and text */
+  margin-bottom: 16px; /* Adjust spacing as needed */
+  white-space: nowrap; /* Prevent text from wrapping */
+  justify-content: flex-start; /* Align content to the left */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.custom-form-row label {
+  display: flex;
+  align-items: center; /* Vertically center the checkbox and text */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove padding */
+}
+
+.custom-form-row input[type="checkbox"] {
+  margin-right: 0px; /* Space between checkbox and text */
+  flex-shrink: 0; /* Prevent the checkbox from shrinking */
+  padding: 0; /* Remove padding */
+}
+
+.custom-form-row a {
+  margin-left: 4px; /* Space between text and link */
+  white-space: nowrap; /* Prevent link text from wrapping */
+  padding: 0; /* Remove padding */
+}
