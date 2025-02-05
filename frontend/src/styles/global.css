@@ -332,31 +332,83 @@ footer a:hover {
 }
 
 /* Custom Form Row for Checkbox and Text Alignment */
+/* Custom Form Row for Checkbox and Text Alignment */
 .custom-form-row {
   display: flex;
   align-items: center; /* Vertically center the checkbox and text */
   margin-bottom: 16px; /* Adjust spacing as needed */
   white-space: nowrap; /* Prevent text from wrapping */
   justify-content: flex-start; /* Align content to the left */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
+  padding: 0;
+  margin: 0;
 }
 
 .custom-form-row label {
   display: flex;
-  align-items: center; /* Vertically center the checkbox and text */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove padding */
+  align-items: center; /* Ensure label and checkbox are aligned */
+  gap: 8px; /* Space between checkbox and text */
+  margin: 0;
+  padding: 0;
 }
 
 .custom-form-row input[type="checkbox"] {
-  margin-right: 0px; /* Space between checkbox and text */
-  flex-shrink: 0; /* Prevent the checkbox from shrinking */
-  padding: 0; /* Remove padding */
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0; /* Prevent checkbox from shrinking */
+  width: 20px; /* Set checkbox size */
+  height: 20px;
+  border-radius: 4px; /* Optional: rounded corners */
+  cursor: pointer;
 }
 
 .custom-form-row a {
-  margin-left: 4px; /* Space between text and link */
   white-space: nowrap; /* Prevent link text from wrapping */
-  padding: 0; /* Remove padding */
+  padding: 0;
+}
+
+/* Modal Background */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Style for Terms Button */
+.terms-button {
+  background: none;
+  border: none;
+  color: rgb(0, 0, 105);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.terms-button:hover {
+  text-decoration: none;
 }
