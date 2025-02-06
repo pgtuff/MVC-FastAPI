@@ -90,25 +90,33 @@ const Login = () => {
         {/* Terms and Conditions Checkbox */}
         <div className="custom-form-row">
           <label>
-            <input type="checkbox" checked={agreeToTerms} onChange={(e) => setAgreeToTerms(e.target.checked)} required />
-            <button type="button" className="terms-button" onClick={() => setShowTerms(true)}>I agree to the Terms and Conditions</button>
+            <input
+              type="checkbox"
+              checked={agreeToTerms}
+              onChange={(e) => setAgreeToTerms(e.target.checked)}
+              required
+            />
+            <span className="terms-text">
+              <Link to="/terms" className="terms-link">I agree to the Terms and Conditions</Link>
+            </span>
           </label>
         </div>
+
 
         {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
         <button type="submit" className="cta-button">Login</button>
+
+        <div className="terms-text">
+          <Link to="/forgot-password" className="terms-link">Forgot Password?</Link>
+          <Link to="/signup" className="terms-link">Sign Up</Link>
+        </div>
+
+        <div className="terms-text">
+          
+        </div>
       </form>
 
-      <div className="text-center">
-        <Link to="/forgot-password" className="auth-link">Forgot Password?</Link>
-      </div>
-
-      <div className="text-center">
-        <p>
-          Don't have an account? <Link to="/signup" className="auth-link">Sign Up</Link>
-        </p>
-      </div>
 
       <div className="text-center">
         <button onClick={handleGoogleLogin} className="cta-button google-login">Login with Google</button>

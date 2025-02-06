@@ -401,14 +401,27 @@ footer a:hover {
   color: #333;
 }
 
-/* Style for Terms Button */
-.terms-button {
-  background: none;
-  border: none;
+.terms-link {
   color: rgb(0, 0, 105);
-  cursor: pointer;
-  text-decoration: underline;
-}
-.terms-button:hover {
   text-decoration: none;
+  cursor: pointer;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+  color: rgb(0, 0, 105); /* Ensures it stays blue */
+}
+
+.terms-text {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-link {
+  text-align: left;
+}
+
+.right-link {
+  text-align: right;
 }
