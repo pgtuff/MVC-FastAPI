@@ -13,7 +13,11 @@ import VolumeConverter from './pages/volume';
 import Login from './pages/login';
 import Profile from './pages/profile';
 import Header from './components/header';
+import ForgotPassword from './pages/forgot-password';
 import Footer from './components/footer';
+import SignUp from './pages/signup';
+import TermsAndConditions from './pages/terms';
+
 
 const App = () => {
   // State to manage login status
@@ -46,6 +50,9 @@ const App = () => {
           <Route path="/volume" element={<VolumeConverter />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
         </Routes>
       </main>
 
