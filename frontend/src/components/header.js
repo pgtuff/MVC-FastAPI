@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'; // Use NavLink instead of Link
 import Logo from '../components/logo.js'; // Adjust the import path if needed
 
 const Header = ({ isLoggedIn }) => {
@@ -7,29 +7,56 @@ const Header = ({ isLoggedIn }) => {
     <header className="header">
       {/* Top row with logo, main links, and auth options */}
       <nav className="nav-links">
-        <Link to="/" className="nav-link"><Logo /></Link>
-        <Link to="/about" className="nav-link">About</Link>
-        <Link to="/api" className="nav-link">Get API Access</Link>
-        <Link to="/docs" className="nav-link">API Docs</Link>
-        
+        {/* Logo link with a specific class to exclude it from active styling */}
+        <NavLink to="/" className="nav-link logo-link" exact>
+          <Logo />
+        </NavLink>
+
+        {/* Other nav links */}
+        <NavLink to="/about" className="nav-link" activeClassName="active">
+          About
+        </NavLink>
+        <NavLink to="/api" className="nav-link" activeClassName="active">
+          Get API Access
+        </NavLink>
+        <NavLink to="/docs" className="nav-link" activeClassName="active">
+          API Docs
+        </NavLink>
+
         {/* Auth links on the right-hand side */}
         <div className="auth-links">
           {isLoggedIn ? (
-            <Link to="/profile" className="auth-link">Profile</Link>
+            <NavLink to="/profile" className="auth-link" activeClassName="active">
+              Profile
+            </NavLink>
           ) : (
-            <Link to="/login" className="auth-link">Sign In</Link>
+            <NavLink to="/login" className="auth-link" activeClassName="active">
+              Sign In
+            </NavLink>
           )}
         </div>
       </nav>
 
       {/* New row for unit conversion links */}
       <nav className="unit-links">
-        <Link to="/" className="unit-link">Distance</Link>
-        <Link to="/weight" className="unit-link">Weight</Link>
-        <Link to="/volume" className="unit-link">Volume</Link>
-        <Link to="/area" className="unit-link">Area</Link>
-        <Link to="/temperature" className="unit-link">Temperature</Link>
-        <Link to="/time" className="unit-link">Time</Link>
+        <NavLink to="/" className="unit-link" activeClassName="active" exact>
+          Distance
+        </NavLink>
+        <NavLink to="/weight" className="unit-link" activeClassName="active">
+          Weight
+        </NavLink>
+        <NavLink to="/volume" className="unit-link" activeClassName="active">
+          Volume
+        </NavLink>
+        <NavLink to="/area" className="unit-link" activeClassName="active">
+          Area
+        </NavLink>
+        <NavLink to="/temperature" className="unit-link" activeClassName="active">
+          Temperature
+        </NavLink>
+        <NavLink to="/time" className="unit-link" activeClassName="active">
+          Time
+        </NavLink>
       </nav>
     </header>
   );

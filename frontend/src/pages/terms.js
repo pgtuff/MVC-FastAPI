@@ -67,7 +67,7 @@ const TermsAndConditions = () => {
       </div>
 
       <div className="text-center" style={{ marginTop: '32px' }}>
-        <Link to="/" className="cta-button">Back to Home</Link>
+        <Link to="/login" className="cta-button">Back to Sign In</Link>
       </div>
     </div>
   );

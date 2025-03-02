@@ -425,3 +425,21 @@ footer a:hover {
 .right-link {
   text-align: right;
 }
+
+/* Active state for nav links (excluding the logo) */
+.nav-link:not(.logo-link).active {
+  background-color: #10b981; /* Green background for active state */
+  color: #fff; /* White text for active state */
+}
+
+/* Active state for unit links */
+.unit-link.active {
+  background-color: #10b981; /* Green background for active state */
+  color: #fff; /* White text for active state */
+}
+
+/* Active state for auth links */
+.auth-link.active {
+  background-color: #10b981; /* Green background for active state */
+  color: #fff; /* White text for active state */
+}
