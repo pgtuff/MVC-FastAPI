@@ -1,20 +1,15 @@
-# backend/app/schemas.py
+from pydantic import BaseModel, EmailStr
 
-from pydantic import BaseModel
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+    confirm_password: str
+    agree_to_terms: bool
 
-# Base schema for Item
-class ItemBase(BaseModel):
-    name: str
-    description: str = None
-    price: float
-
-# Schema for creating an Item
-class ItemCreate(ItemBase):
-    pass
-
-# Schema for reading an Item (with id)
-class ItemResponse(ItemBase):
+class UserResponse(BaseModel):
     id: int
+    email: EmailStr
+    agree_to_terms: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True

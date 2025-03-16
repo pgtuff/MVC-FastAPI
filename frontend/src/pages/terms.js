@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Replace useHistory with useNavigate
 import Logo from '../components/logo.js';
 import '../styles/global.css';
 
 const TermsAndConditions = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   return (
     <div className="container">
       <div className="center" style={{ marginBottom: '32px' }}>
@@ -67,7 +69,7 @@ const TermsAndConditions = () => {
       </div>
 
       <div className="text-center" style={{ marginTop: '32px' }}>
-        <Link to="/login" className="cta-button">Back to Sign In</Link>
+        <button onClick={() => navigate(-1)} className="cta-button">Back</button>
       </div>
     </div>
   );

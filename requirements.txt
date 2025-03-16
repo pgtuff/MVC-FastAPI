@@ -3,3 +3,5 @@ uvicorn
 sqlalchemy
 pydantic
 pytest
+email-validator
+pydantic[email]

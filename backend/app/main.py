@@ -1,5 +1,5 @@
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Header, Query, Depends, HTTPException, Security
+from fastapi import FastAPI, Header, Query, Depends, HTTPException, Security, status
 from sqlalchemy.orm import Session
 from . import models, schemas, database
 from typing import Optional
@@ -37,6 +37,45 @@ logging.basicConfig(level=logging.INFO)
 # Create the database tables
 # models.Base.metadata.create_all(bind=database.engine)
 
+# Dependency to get the database session
+def get_db():
+    db = database.SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+# Sign-up endpoint
+@app.post("/signup", response_model=schemas.UserResponse)
+def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    # Check if passwords match
+    if user.password != user.confirm_password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Passwords do not match.",
+        )
+
+    # Check if email already exists
+    db_user = db.query(models.User).filter(models.User.email == user.email).first()
+    if db_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered.",
+        )
+
+    # Hash the password (use a library like `passlib` or `bcrypt`)
+    hashed_password = user.password  # Replace with actual hashing logic
+
+    # Create the new user
+    db_user = models.User(email=user.email, password=hashed_password, agree_to_terms=user.agree_to_terms)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+
+    return db_user
+
+
 # Dependency to validate the API key
 async def get_api_key(api_key: str = Security(api_key_header)):
     print(f"Received API Key Header: {api_key}")  # Print the input value
@@ -53,8 +92,8 @@ async def get_api_key(api_key: str = Security(api_key_header)):
     raise HTTPException(status_code=403, detail="Invalid API Key")
 
 # Endpoint to create an item
-@app.post("/items/", response_model=schemas.ItemResponse)
-def create_item(item: schemas.ItemCreate, db: Session = Depends(database.get_db)):
+@app.post("/items/", response_model=schemas.UserResponse)
+def create_item(item: schemas.UserCreate, db: Session = Depends(get_db)):
     db_item = models.Item(name=item.name, description=item.description, price=item.price)
     db.add(db_item)
     db.commit()
@@ -62,9 +101,10 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(database.get_db)
     return db_item
 
 # Endpoint to get all items
-@app.get("/items/", response_model=list[schemas.ItemResponse])
-def read_items(db: Session = Depends(database.get_db)):
+@app.get("/items/", response_model=list[schemas.UserResponse])
+def read_items(db: Session = Depends(get_db)):
     return db.query(models.Item).all()
+
 
 # Conversion endpoint
 @app.get("/convert_value", status_code=200)

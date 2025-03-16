@@ -1,33 +1,12 @@
-# backend/app/models.py
+from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.ext.declarative import declarative_base
 
-from sqlalchemy import Column, Integer, String, Float
-from .database import Base
+Base = declarative_base()
 
-# Define the "Item" model/table
-class Item(Base):
-    __tablename__ = "items"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String, index=True)
-    price = Column(Float)
-
-
-# Define the "Item" model/table
-class Asset(Base):
-    __tablename__ = "assets"
+class User(Base):
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String, index=True)
-    price = Column(Float)
-
-
-# Define the "Item" model/table
-class AssetType(Base):
-    __tablename__ = "assetsType"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String)
-    price = Column(Float)
+    email = Column(String, unique=True, index=True, nullable=False)
+    password = Column(String, nullable=False)
+    agree_to_terms = Column(Boolean, default=False)

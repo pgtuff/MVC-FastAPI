@@ -13,7 +13,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     // Validation
@@ -33,8 +33,32 @@ const SignUp = () => {
     }
 
     setError(null);
-    console.log('Signing up with:', email, password);
-    alert(`Sign up successful for ${email}`);
+
+    // Send data to the backend
+    try {
+      const response = await fetch('http://localhost:8000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          confirm_password: confirmPassword,
+          agree_to_terms: agreeToTerms,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || 'Sign-up failed.');
+      }
+
+      const data = await response.json();
+      alert(`Sign-up successful for ${data.email}`);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
